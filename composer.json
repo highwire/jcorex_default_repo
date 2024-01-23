@@ -1,0 +1,129 @@
+{
+    "name": "highwire/jcorex_default_repo",
+    "description": "Site specific repository for jcorex_default_repo",
+    "type": "project",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "discard-changes": true,
+        "process-timeout": 0,
+        "theme-directories": [
+            "web/modules/freebird/themes/highwire"
+        ],
+		"allow-plugins": {
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true,
+            "composer/installers": true,
+            "zaporylie/composer-drupal-optimizations": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require": {
+        "highwire/freebird": "dev-10.x-1.x-stable",
+        "highwire/freebird-scaffold": "dev-10.x-1.x-dev",
+        "drupal/view_unpublished": "1.1.0",
+        "drupal/profile_switcher": "1.0.0-alpha6",
+        "composer/installers": "^2.0",
+        "drupal/core-composer-scaffold": "^10.1",
+        "drupal/core-recommended": "^10.1",
+        "drupal/advagg": "6.0.0-alpha1"
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        },
+        "composer-exit-on-patch-failure": true,
+        "enable-patching": true,
+        "installer-paths": {
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "web/contrib/{$name}": [
+                "type:drupal-drush"
+            ]
+        },
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ]
+    },
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        "assets": {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        "freebird": {
+            "type": "git",
+            "url": "git@github.com:highwire/freebird.git"
+        },
+        "freebird-scaffold": {
+            "type": "git",
+            "url": "git@github.com:highwire/freebird-scaffold.git"
+        },
+        "hwphp": {
+            "type": "git",
+            "url": "git@github.com:highwire/hwphp.git"
+        },
+        "elasticeq": {
+            "type": "git",
+            "url": "git@github.com:highwire/elasticentityquery.git"
+        },
+        "marcrecords": {
+            "type": "git",
+            "url": "git@github.com:highwire/marc-records-client-php.git"
+        },
+        "pdata": {
+            "type": "git",
+            "url": "git@github.com:highwire/personalization-data-client-php.git"
+        },
+        "pclient": {
+            "type": "git",
+            "url": "git@github.com:highwire/personalization-client-php.git"
+        },
+        "casatoken": {
+            "type": "git",
+            "url": "git@github.com:highwire/casa-token-client-php.git"
+        },
+        "transfertoken": {
+            "type": "git",
+            "url": "https://github.com/highwire/transfer-token-client-php.git"
+        }
+    },
+    "autoload": {
+        "classmap": [
+            "scripts/composer/FreebirdHandler.php"
+        ]
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "FreebirdComposer\\CommandHandler::provisionSettings",
+            "HighWireSite\\composer\\FreebirdHandler::setupFreebirdCode"
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "FreebirdComposer\\CommandHandler::provisionSettings",
+            "HighWireSite\\composer\\FreebirdHandler::setupFreebirdCode"
+        ]
+    }
+}
